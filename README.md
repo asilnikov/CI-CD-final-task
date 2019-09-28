@@ -1,1 +1,1 @@
-# CI-CD-final-task
+# SimpleMavenJunitWebApp
