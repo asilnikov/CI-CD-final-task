@@ -1,4 +1,4 @@
-scratch-simple-webapp#3
+scratch-simple-webapp
 ==============
 
 This project demonstrates a range of features across multiple frameworks and tools including
