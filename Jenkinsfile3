@@ -1,0 +1,22 @@
+node {
+stage ('Receive http request'){
+    sh '''curl -I -L -s '%{http_code}' http://10.40.1.101:8080/scratch-simple-webapp-1.0-SNAPSHOT/signIn| grep HTTP |  awk '{print $2}' > result '''
+    }
+    
+stage ('Deployed app test, and email notification'){
+    def output = readFile('result').trim()
+    if ( output == '200') {
+    emailext attachLog: true, body: '$BUILD_URL', 
+    subject: '$PROJECT_NAME - Build # $BUILD_NUMBER - App status is ok!', 
+    to: 'asilnikov@teplopribor.ru'
+    }
+    else {
+        emailext attachLog: true, body: '$BUILD_URL', 
+       subject: '$PROJECT_NAME - Build # $BUILD_NUMBER - APP IS NOT OK!!!', 
+       to: 'asilnikov@teplopribor.ru'
+       }
+    }
+}
+
+
+
